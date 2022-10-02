@@ -1,2 +1,3 @@
 # CSES
-CSES coding
+CSES code of a noob player....
+:)
