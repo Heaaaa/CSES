@@ -1,70 +1,68 @@
 //
 //  main.cpp
-//  PalindromeReorder
+//  Palindrome
 //
-//  Created by Hea Seng Jun on 22/09/2022.
+//  Created by Hea Seng Jun on 28/09/2022.
 //
-// Get from GeeksforGeeks
 
 #include <iostream>
-#include <cstring>
-#include <vector>
-#include <algorithm>
+#include <unordered_map>
 using namespace std;
-
-int main(int argc, const char * argv[]) {
-    string n,a,b,result;
-    vector<string>v;
-    cin >> n;
-    sort(n.begin(), n.end());
-    if(n.size()==1)
-    {
-        cout << n;
-    }
-    else
-    {
-        do
-        {
-            if(n.size()%2!=0)
-            {
-                a=n.substr(0,n.size()/2+1);
-                b=n.substr(n.size()/2,n.size()-1);
-                for (unsigned long long o = 0; o<b.size()/2; o++)
-                {
-                    swap(b[o], b[b.size() - o - 1]);
-                }
-                //cout << a+"1" << endl << b+"2" << endl;
-                if(a==b)
-                {
-                    v.push_back(n);
-                    break;
-                }
-            }
-            else if(n.size()%2==0)
-            {
-                a=n.substr(0,n.size()/2);
-                b=n.substr(n.size()/2,n.size());
-                for (unsigned long long r = 0; r < b.size()/2; r++)
-                {
-                    swap(b[r], b[b.size() - r - 1]);
-                }
-                if(a==b)
-                {
-                    v.push_back(n);
-                    break;
-                }
-            }
-        } while(next_permutation(n.begin(), n.end()));
-        
-        if(v.size()==1)
-        {
-            cout << v[0];
-        }
-        else
-        {
-            cout << "NO SOLUTION";
+ 
+string getPalindrome(string str)
+{
+ 
+    // Store counts of characters
+    unordered_map<char, int> hmap;
+    for (int i = 0; i < str.length(); i++)
+        hmap[str[i]]++;
+ 
+    /* find the number of odd elements.
+       Takes O(n) */
+    int oddCount = 0;
+    char oddChar;
+    for (auto x : hmap) {
+        if (x.second % 2 != 0) {
+            oddCount++;
+            oddChar = x.first;
         }
     }
-    
+ 
+    /* odd_cnt = 1 only if the length of
+       str is odd */
+    if (oddCount > 1
+        || oddCount == 1 && str.length() % 2 == 0)
+        return "NO SOLUTION";
+ 
+    /* Generate first half of palindrome */
+    string firstHalf = "", secondHalf = "";
+    for (auto x : hmap) {
+ 
+        // Build a string of floor(count/2)
+        // occurrences of current character
+        // s(x.second/2,x.first)
+        // x.second/2 means it will have a string which have x.second/2 space which fill by x.first
+        // ex: madam have two a,so x.second/2 will have 1 space and x.first is a char which is a
+        string s(x.second / 2, x.first);
+ 
+        // Attach the built string to end of
+        // and begin of second half
+        firstHalf = firstHalf + s;
+        secondHalf = s + secondHalf;
+    }
+ 
+    // Insert odd character if there
+    // is any
+    return (oddCount == 1)
+               ? (firstHalf + oddChar + secondHalf)
+               : (firstHalf + secondHalf);
+}
+ 
+int main()
+{
+    string s;
+    cin >> s;
+    cout << getPalindrome(s);
     return 0;
 }
+
