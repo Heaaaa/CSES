@@ -1,0 +1,70 @@
+//
+//  main.cpp
+//  PalindromeReorder
+//
+//  Created by Hea Seng Jun on 22/09/2022.
+//
+// Get from GeeksforGeeks
+
+#include <iostream>
+#include <cstring>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main(int argc, const char * argv[]) {
+    string n,a,b,result;
+    vector<string>v;
+    cin >> n;
+    sort(n.begin(), n.end());
+    if(n.size()==1)
+    {
+        cout << n;
+    }
+    else
+    {
+        do
+        {
+            if(n.size()%2!=0)
+            {
+                a=n.substr(0,n.size()/2+1);
+                b=n.substr(n.size()/2,n.size()-1);
+                for (unsigned long long o = 0; o<b.size()/2; o++)
+                {
+                    swap(b[o], b[b.size() - o - 1]);
+                }
+                //cout << a+"1" << endl << b+"2" << endl;
+                if(a==b)
+                {
+                    v.push_back(n);
+                    break;
+                }
+            }
+            else if(n.size()%2==0)
+            {
+                a=n.substr(0,n.size()/2);
+                b=n.substr(n.size()/2,n.size());
+                for (unsigned long long r = 0; r < b.size()/2; r++)
+                {
+                    swap(b[r], b[b.size() - r - 1]);
+                }
+                if(a==b)
+                {
+                    v.push_back(n);
+                    break;
+                }
+            }
+        } while(next_permutation(n.begin(), n.end()));
+        
+        if(v.size()==1)
+        {
+            cout << v[0];
+        }
+        else
+        {
+            cout << "NO SOLUTION";
+        }
+    }
+    
+    return 0;
+}
