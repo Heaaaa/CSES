@@ -1,0 +1,14 @@
+//
+//  main.cpp
+//  Apartments
+//
+//  Created by Hea Seng Jun on 29/09/2022.
+//
+
+#include <iostream>
+using namespace std;
+
+int main(int argc, const char * argv[]) {
+    
+    return 0;
+}
