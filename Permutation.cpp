@@ -10,7 +10,6 @@
 using namespace std;
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
     unsigned long long n;
     cin >> n;
     vector <unsigned long long> v;
